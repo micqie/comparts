@@ -20,3 +20,4 @@ if ($index >= 0 && $index < count($_SESSION['cart'])) {
 
 header('Location: index.php?module=customer&action=cart');
 exit;
+

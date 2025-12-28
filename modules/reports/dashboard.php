@@ -245,3 +245,4 @@ new Chart(statusCtx, {
     }
 });
 </script>
+

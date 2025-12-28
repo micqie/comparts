@@ -16,6 +16,13 @@ $currentModule = isset($_GET['module']) ? $_GET['module'] : 'products';
 
     <ul class="sidebar-menu">
         <li>
+            <a href="index.php?module=categories&action=list"
+               class="<?php echo $currentModule === 'categories' ? 'active' : ''; ?>">
+                <i class="bi bi-tags"></i>
+                <span>Categories</span>
+            </a>
+        </li>
+        <li>
             <a href="index.php?module=products&action=list"
                class="<?php echo $currentModule === 'products' ? 'active' : ''; ?>">
                 <i class="bi bi-box-seam"></i>

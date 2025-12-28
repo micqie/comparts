@@ -100,3 +100,4 @@ foreach ($cart as &$item) {
         </div>
     </div>
 <?php endif; ?>
+

@@ -17,14 +17,14 @@ $username = isset($_POST['username']) ? trim($_POST['username']) : '';
 $password = isset($_POST['password']) ? $_POST['password'] : '';
 
 if (empty($username) || empty($password)) {
-    header('Location: index.php?module=auth&action=login&error=' . urlencode('Username and password are required'));
+    header('Location: index.php?module=public&action=home&error=' . urlencode('Username and password are required') . '&form=login');
     exit;
 }
 
 // Query user from database
 $stmt = mysqli_prepare($conn, "SELECT id, username, password, role FROM users WHERE username = ?");
 if (!$stmt) {
-    header('Location: index.php?module=auth&action=login&error=' . urlencode('Database error'));
+    header('Location: index.php?module=public&action=home&error=' . urlencode('Database error') . '&form=login');
     exit;
 }
 
@@ -39,15 +39,11 @@ if ($user && password_verify($password, $user['password'])) {
     // Login successful
     loginUser($user['id'], $user['username'], $user['role']);
 
-    // Redirect based on role
-    if ($user['role'] === 'admin') {
-        header('Location: index.php?module=products&action=list');
-    } else {
-        header('Location: index.php?module=customer&action=dashboard');
-    }
+    // Redirect back to home page with success message
+    header('Location: index.php?module=public&action=home&success=' . urlencode('Login successful! You are now logged in.') . '&form=login');
     exit;
 } else {
     // Login failed
-    header('Location: index.php?module=auth&action=login&error=' . urlencode('Invalid username or password'));
+    header('Location: index.php?module=public&action=home&error=' . urlencode('Invalid username or password') . '&form=login');
     exit;
 }

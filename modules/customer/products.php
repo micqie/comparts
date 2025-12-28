@@ -120,3 +120,4 @@ $categories = mysqli_query($conn, "SELECT id, category_name FROM categories ORDE
         </div>
     <?php endif; ?>
 </div>
+

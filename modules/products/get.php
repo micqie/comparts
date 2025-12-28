@@ -23,3 +23,4 @@ if ($id > 0) {
 }
 
 echo json_encode(['error' => 'Product not found']);
+

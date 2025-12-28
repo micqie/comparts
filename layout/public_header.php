@@ -28,22 +28,22 @@
         <div class="collapse navbar-collapse" id="publicNav">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="index.php?module=public&action=home">Home</a>
+                    <a class="nav-link" href="index.php#hero">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="index.php?module=public&action=about">About Us</a>
+                    <a class="nav-link" href="index.php#about">About Us</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="index.php?module=public&action=contact">Contact Us</a>
+                    <a class="nav-link" href="index.php#contact">Contact Us</a>
                 </li>
             </ul>
             <div class="d-flex gap-2">
-                <a href="index.php?module=auth&action=login" class="btn btn-outline-light btn-sm">
+                <button type="button" class="btn btn-outline-light btn-sm" data-bs-toggle="modal" data-bs-target="#authModal" onclick="showLoginForm()">
                     <i class="bi bi-box-arrow-in-right"></i> Login
-                </a>
-                <a href="index.php?module=auth&action=register" class="btn btn-primary btn-sm">
+                </button>
+                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#authModal" onclick="showRegisterForm()">
                     <i class="bi bi-person-plus"></i> Register
-                </a>
+                </button>
             </div>
         </div>
     </div>

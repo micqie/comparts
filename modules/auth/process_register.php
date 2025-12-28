@@ -23,17 +23,12 @@ $address = isset($_POST['address']) ? trim($_POST['address']) : '';
 
 // Validation
 if (empty($username) || empty($password) || empty($full_name) || empty($email)) {
-    header('Location: index.php?module=auth&action=register&error=' . urlencode('All required fields must be filled'));
-    exit;
-}
-
-if (strlen($password) < 6) {
-    header('Location: index.php?module=auth&action=register&error=' . urlencode('Password must be at least 6 characters'));
+    header('Location: index.php?module=public&action=home&error=' . urlencode('All required fields must be filled') . '&form=register');
     exit;
 }
 
 if ($password !== $confirm_password) {
-    header('Location: index.php?module=auth&action=register&error=' . urlencode('Passwords do not match'));
+    header('Location: index.php?module=public&action=home&error=' . urlencode('Passwords do not match') . '&form=register');
     exit;
 }
 
@@ -44,7 +39,7 @@ mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 if (mysqli_fetch_assoc($result)) {
     mysqli_stmt_close($stmt);
-    header('Location: index.php?module=auth&action=register&error=' . urlencode('Username already exists'));
+    header('Location: index.php?module=public&action=home&error=' . urlencode('Username already exists') . '&form=register');
     exit;
 }
 mysqli_stmt_close($stmt);
@@ -56,7 +51,7 @@ mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 if (mysqli_fetch_assoc($result)) {
     mysqli_stmt_close($stmt);
-    header('Location: index.php?module=auth&action=register&error=' . urlencode('Email already registered'));
+    header('Location: index.php?module=public&action=home&error=' . urlencode('Email already registered') . '&form=register');
     exit;
 }
 mysqli_stmt_close($stmt);
@@ -92,6 +87,6 @@ try {
     exit;
 } catch (Exception $e) {
     mysqli_rollback($conn);
-    header('Location: index.php?module=auth&action=register&error=' . urlencode('Registration failed. Please try again.'));
+    header('Location: index.php?module=public&action=home&error=' . urlencode('Registration failed. Please try again.') . '&form=register');
     exit;
 }

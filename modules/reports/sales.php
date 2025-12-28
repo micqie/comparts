@@ -197,3 +197,4 @@ new Chart(dailyCtx, {
     }
 });
 </script>
+

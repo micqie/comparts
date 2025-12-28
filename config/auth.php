@@ -81,3 +81,4 @@ function logoutUser() {
     }
     session_destroy();
 }
+

@@ -33,3 +33,4 @@ if ($index >= 0 && $index < count($_SESSION['cart']) && $quantity > 0) {
 
 header('Location: index.php?module=customer&action=cart');
 exit;
+

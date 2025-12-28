@@ -58,3 +58,4 @@ if (!$found) {
 
 header('Location: index.php?module=customer&action=cart');
 exit;
+

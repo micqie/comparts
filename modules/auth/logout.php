@@ -6,3 +6,4 @@ logoutUser();
 
 header('Location: index.php?module=auth&action=login');
 exit;
+
