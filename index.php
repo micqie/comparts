@@ -13,9 +13,9 @@ $allowedModules = [
     'categories' => ['list', 'save', 'delete', 'get'],
     'products'  => ['list', 'form', 'save', 'delete', 'get'],
     'customers' => ['list', 'form', 'save', 'delete', 'get'],
-    'orders'    => ['list', 'form', 'save', 'view', 'delete'],
+    'orders'    => ['list', 'form', 'save', 'view', 'delete', 'get', 'complete'],
     'reports'   => ['dashboard', 'sales'],
-    'customer'  => ['dashboard', 'products', 'cart', 'checkout', 'orders', 'add_to_cart', 'remove_from_cart', 'update_cart'],
+    'customer'  => ['dashboard', 'products', 'cart', 'checkout', 'orders', 'add_to_cart', 'remove_from_cart', 'update_cart', 'pay'],
 ];
 
 // Allow auth and public modules without login check
@@ -25,9 +25,9 @@ $publicModules = ['auth', 'public'];
 if (!in_array($module, $publicModules, true)) {
     requireLogin();
 
-    // Admin-only modules
+    // Admin-only modules (except 'get' action which can be accessed by customers for API calls)
     $adminModules = ['categories', 'products', 'customers', 'orders', 'reports'];
-    if (in_array($module, $adminModules, true) && !isAdmin()) {
+    if (in_array($module, $adminModules, true) && !isAdmin() && $action !== 'get') {
         header('Location: index.php?module=customer&action=dashboard');
         exit;
     }
@@ -51,8 +51,8 @@ if (!isset($allowedModules[$module]) || !in_array($action, $allowedModules[$modu
     }
 }
 
-// Common layout (skip for auth pages to avoid showing nav)
-$skipLayout = ($module === 'auth' && in_array($action, ['login', 'register']));
+// Common layout (skip for auth pages to avoid showing nav, and API endpoints)
+$skipLayout = ($module === 'auth' && in_array($action, ['login', 'register'])) || in_array($action, ['get', 'pay']);
 
 if (!$skipLayout) {
     // Public pages use public header/nav
@@ -71,7 +71,7 @@ if (!$skipLayout) {
 
 // Dispatch to module
 $moduleFile = __DIR__ . "/modules/{$module}/{$action}.php";
-$wrapClass = ($module === 'public') ? '' : 'main-content';
+$wrapClass = ($module === 'public' || $skipLayout) ? '' : 'main-content';
 
 // Inline public home (no separate file)
 if ($module === 'public' && $action === 'home') {

@@ -80,10 +80,8 @@ try {
     // Commit transaction
     mysqli_commit($conn);
 
-    // Auto-login the user
-    loginUser($user_id, $username, $role);
-
-    header('Location: index.php?module=customer&action=dashboard');
+    // Redirect to home page with success message and show login form
+    header('Location: index.php?module=public&action=home&success=' . urlencode('Registration successful! Please login with your credentials.') . '&form=login');
     exit;
 } catch (Exception $e) {
     mysqli_rollback($conn);

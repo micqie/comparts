@@ -13,22 +13,23 @@ if (isLoggedIn()) {
     exit;
 }
 
-$username = isset($_POST['username']) ? trim($_POST['username']) : '';
+$email = isset($_POST['email']) ? trim($_POST['email']) : '';
 $password = isset($_POST['password']) ? $_POST['password'] : '';
 
-if (empty($username) || empty($password)) {
-    header('Location: index.php?module=public&action=home&error=' . urlencode('Username and password are required') . '&form=login');
+if (empty($email) || empty($password)) {
+    header('Location: index.php?module=public&action=home&error=' . urlencode('Email and password are required') . '&form=login');
     exit;
 }
 
-// Query user from database
-$stmt = mysqli_prepare($conn, "SELECT id, username, password, role FROM users WHERE username = ?");
+// Query user from database by email
+// Check both: email in customers table (for customers) OR username in users table (for admin)
+$stmt = mysqli_prepare($conn, "SELECT DISTINCT u.id, u.username, u.password, u.role FROM users u LEFT JOIN customers c ON u.id = c.user_id WHERE c.email = ? OR (u.role = 'admin' AND u.username = ?)");
 if (!$stmt) {
     header('Location: index.php?module=public&action=home&error=' . urlencode('Database error') . '&form=login');
     exit;
 }
 
-mysqli_stmt_bind_param($stmt, 's', $username);
+mysqli_stmt_bind_param($stmt, 'ss', $email, $email);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 $user = mysqli_fetch_assoc($result);
@@ -39,11 +40,15 @@ if ($user && password_verify($password, $user['password'])) {
     // Login successful
     loginUser($user['id'], $user['username'], $user['role']);
 
-    // Redirect back to home page with success message
-    header('Location: index.php?module=public&action=home&success=' . urlencode('Login successful! You are now logged in.') . '&form=login');
+    // Redirect directly to dashboard based on role
+    if ($user['role'] === 'admin') {
+        header('Location: index.php?module=products&action=list');
+    } else {
+        header('Location: index.php?module=customer&action=dashboard');
+    }
     exit;
 } else {
     // Login failed
-    header('Location: index.php?module=public&action=home&error=' . urlencode('Invalid username or password') . '&form=login');
+    header('Location: index.php?module=public&action=home&error=' . urlencode('Invalid email or password') . '&form=login');
     exit;
 }

@@ -34,8 +34,8 @@
                 <div id="loginForm">
                     <form method="POST" action="index.php?module=auth&action=process_login" id="loginFormElement">
                         <div class="mb-3">
-                            <label for="modal_login_username" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="modal_login_username" name="username" required autofocus>
+                            <label for="modal_login_email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="modal_login_email" name="email" required autofocus>
                         </div>
                         <div class="mb-3">
                             <label for="modal_login_password" class="form-label">Password</label>
@@ -136,10 +136,10 @@
         if (errorAlert) errorAlert.classList.add('d-none');
         if (successAlert) successAlert.classList.add('d-none');
 
-        // Focus on username field
+        // Focus on email field
         setTimeout(() => {
-            const usernameField = document.getElementById('modal_login_username');
-            if (usernameField) usernameField.focus();
+            const emailField = document.getElementById('modal_login_email');
+            if (emailField) emailField.focus();
         }, 300);
     }
 

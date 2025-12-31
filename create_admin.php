@@ -10,7 +10,7 @@
 require_once __DIR__ . '/db.php';
 
 // Default admin credentials (change these after first login!)
-$username = 'admin';
+$username = 'admin@gmail.com';
 $password = 'admin123'; // Change this!
 $role = 'admin';
 
@@ -48,4 +48,3 @@ if (mysqli_stmt_execute($stmt)) {
 
 mysqli_stmt_close($stmt);
 mysqli_close($conn);
-
