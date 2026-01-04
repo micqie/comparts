@@ -158,42 +158,27 @@ if ($module === 'public' && $action === 'home') {
         <div class="container">
             <div class="row text-center mb-4">
                 <h2 class="fw-bold">Contact Us</h2>
-                <p class="text-muted">We’d love to hear from you.</p>
+                <p class="text-muted">Get in touch with us.</p>
             </div>
-            <div class="row g-4">
-                <div class="col-lg-6">
-                    <div class="card shadow-sm h-100">
-                        <div class="card-body">
-                            <h5 class="fw-bold mb-3">Reach out</h5>
-                            <p class="text-muted mb-1"><i class="bi bi-geo-alt text-primary me-2"></i>123 Tech Park, Silicon Avenue</p>
-                            <p class="text-muted mb-1"><i class="bi bi-telephone text-primary me-2"></i>+1 (800) 123-4567</p>
-                            <p class="text-muted mb-3"><i class="bi bi-envelope text-primary me-2"></i>support@comparts.local</p>
-                            <p class="text-muted">We typically respond within one business day.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="card shadow-sm h-100">
-                        <div class="card-body">
-                            <h5 class="fw-bold mb-3">Send a message</h5>
-                            <form>
-                                <div class="mb-3">
-                                    <label class="form-label">Name</label>
-                                    <input type="text" class="form-control" placeholder="Your name">
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Email</label>
-                                    <input type="email" class="form-control" placeholder="name@example.com">
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Message</label>
-                                    <textarea class="form-control" rows="4" placeholder="How can we help?"></textarea>
-                                </div>
-                                <button type="button" class="btn btn-primary w-100" disabled>
-                                    <i class="bi bi-send"></i> Send (demo)
-                                </button>
-                                <small class="text-muted d-block mt-2">Demo only — hook up backend/email as needed.</small>
-                            </form>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card shadow-sm">
+                        <div class="card-body text-center p-5">
+                            <h5 class="fw-bold mb-4">Reach out</h5>
+                            <div class="contact-info">
+                                <p class="mb-3 fs-5">
+                                    <i class="bi bi-geo-alt text-primary me-2"></i>
+                                    <strong>Address:</strong> 123 Tech Park, Silicon Avenue
+                                </p>
+                                <p class="mb-3 fs-5">
+                                    <i class="bi bi-telephone text-primary me-2"></i>
+                                    <strong>Contact Number:</strong> +1 (800) 123-4567
+                                </p>
+                                <p class="mb-0 fs-5">
+                                    <i class="bi bi-envelope text-primary me-2"></i>
+                                    <strong>Email:</strong> support@comparts.local
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
