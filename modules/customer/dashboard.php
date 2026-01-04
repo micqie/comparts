@@ -115,7 +115,7 @@ mysqli_stmt_close($stmt);
                         <th>Date</th>
                         <th>Total</th>
                         <th>Status</th>
-                        <th>Action</th>
+
                     </tr>
                     </thead>
                     <tbody>
@@ -138,10 +138,7 @@ mysqli_stmt_close($stmt);
                                 </span>
                             </td>
                             <td>
-                                <a href="index.php?module=orders&action=view&id=<?php echo $order['id']; ?>"
-                                   class="btn btn-sm btn-info">
-                                    <i class="bi bi-eye"></i> View
-                                </a>
+
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -159,4 +156,3 @@ mysqli_stmt_close($stmt);
         <?php endif; ?>
     </div>
 </div>
-
