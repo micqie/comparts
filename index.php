@@ -76,7 +76,7 @@ $wrapClass = ($module === 'public' || $skipLayout) ? '' : 'main-content';
 // Inline public home (no separate file)
 if ($module === 'public' && $action === 'home') {
     ?>
-    <section id="hero" class="hero-section" style="background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=80');">
+    <section id="hero" class="hero-section" style="background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=80'); margin-bottom: 10px;">
         <div class="hero-overlay"></div>
         <div class="container hero-content text-center text-white">
             <h1 class="display-4 fw-bold">Premium Computer Parts & Fast Ordering</h1>
@@ -138,13 +138,13 @@ if ($module === 'public' && $action === 'home') {
                          class="img-fluid rounded shadow" alt="Workstation">
                 </div>
                 <div class="col-lg-6">
-                    <h3 class="fw-bold mb-3">About Comparts</h3>
-                    <p class="text-muted mb-3">We help builders, gamers, and IT teams get the right components without friction. From curated catalogs to transparent stock and order tracking, Comparts keeps your builds moving.</p>
+                    <h3 class="fw-bold mb-3" style="color: white;">About Comparts</h3>
+                    <p  style="color: white;">We help builders, gamers, and IT teams get the right components without friction. From curated catalogs to transparent stock and order tracking, Comparts keeps your builds moving.</p>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><i class="bi bi-check-circle text-primary me-2"></i>Trusted vendor catalog</li>
-                        <li class="mb-2"><i class="bi bi-check-circle text-primary me-2"></i>Fast, secure checkout</li>
-                        <li class="mb-2"><i class="bi bi-check-circle text-primary me-2"></i>Admin and customer dashboards</li>
-                        <li class="mb-2"><i class="bi bi-check-circle text-primary me-2"></i>Reports and analytics for sales</li>
+                        <li class="mb-2"  style="color: white;" ><i class="bi bi-check-circle text-primary me-2"></i>Trusted vendor catalog</li>
+                        <li class="mb-2"  style="color: white;" ><i class="bi bi-check-circle text-primary me-2"></i>Fast, secure checkout</li>
+                        <li class="mb-2" style="color: white;"><i class="bi bi-check-circle text-primary me-2"></i>Admin and customer dashboards</li>
+                        <li class="mb-2" style="color: white;"><i class="bi bi-check-circle text-primary me-2"></i>Reports and analytics for sales</li>
                     </ul>
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#authModal" onclick="showRegisterForm()">
                         Start Ordering
@@ -157,14 +157,14 @@ if ($module === 'public' && $action === 'home') {
     <section class="py-5" id="contact">
         <div class="container">
             <div class="row text-center mb-4">
-                <h2 class="fw-bold">Contact Us</h2>
-                <p class="text-muted">Get in touch with us.</p>
+                <h2 class="fw-bold"  style="color: white;">Contact Us</h2>
+                <p  style="color: white;">Get in touch with us.</p>
             </div>
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="card shadow-sm">
                         <div class="card-body text-center p-5">
-                            <h5 class="fw-bold mb-4">Reach out</h5>
+                            <h5 class="fw-bold mb-4" >Reach out</h5>
                             <div class="contact-info">
                                 <p class="mb-3 fs-5">
                                     <i class="bi bi-geo-alt text-primary me-2"></i>
