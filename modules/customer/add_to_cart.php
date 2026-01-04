@@ -14,8 +14,14 @@ if (!isset($_SESSION['cart'])) {
 $product_id = isset($_POST['product_id']) ? (int)$_POST['product_id'] : 0;
 $quantity = isset($_POST['quantity']) ? (int)$_POST['quantity'] : 1;
 
-if ($product_id <= 0 || $quantity <= 0) {
-    header('Location: index.php?module=customer&action=products');
+// Validation
+if ($product_id <= 0) {
+    header('Location: index.php?module=customer&action=products&error=' . urlencode('Invalid product selected'));
+    exit;
+}
+
+if ($quantity <= 0) {
+    header('Location: index.php?module=customer&action=products&error=' . urlencode('Quantity must be greater than 0'));
     exit;
 }
 
@@ -28,19 +34,30 @@ $result = mysqli_stmt_get_result($stmt);
 $product = mysqli_fetch_assoc($result);
 mysqli_stmt_close($stmt);
 
-if (!$product || (int)$product['stock_quantity'] < $quantity) {
-    header('Location: index.php?module=customer&action=products&error=' . urlencode('Insufficient stock'));
+if (!$product) {
+    header('Location: index.php?module=customer&action=products&error=' . urlencode('Product not found'));
+    exit;
+}
+
+$availableStock = (int)$product['stock_quantity'];
+if ($availableStock <= 0) {
+    header('Location: index.php?module=customer&action=products&error=' . urlencode('Product is out of stock'));
     exit;
 }
 
 // Check if product already in cart
 $found = false;
+$currentCartQty = 0;
 foreach ($_SESSION['cart'] as &$item) {
     if ($item['product_id'] == $product_id) {
+        $currentCartQty = $item['quantity'];
         $newQty = $item['quantity'] + $quantity;
-        if ($newQty <= (int)$product['stock_quantity']) {
+        if ($newQty <= $availableStock) {
             $item['quantity'] = $newQty;
             $found = true;
+        } else {
+            header('Location: index.php?module=customer&action=products&error=' . urlencode('Insufficient stock. Available: ' . $availableStock . ', Requested: ' . $newQty));
+            exit;
         }
         break;
     }
@@ -48,6 +65,10 @@ foreach ($_SESSION['cart'] as &$item) {
 
 // Add new item if not found
 if (!$found) {
+    if ($quantity > $availableStock) {
+        header('Location: index.php?module=customer&action=products&error=' . urlencode('Insufficient stock. Available: ' . $availableStock . ', Requested: ' . $quantity));
+        exit;
+    }
     $_SESSION['cart'][] = [
         'product_id' => $product_id,
         'product_name' => $product['product_name'],
@@ -56,6 +77,7 @@ if (!$found) {
     ];
 }
 
-header('Location: index.php?module=customer&action=cart');
+$productName = htmlspecialchars($product['product_name']);
+$message = $found ? "Updated quantity for '{$productName}' in cart!" : "'{$productName}' added to cart successfully!";
+header('Location: index.php?module=customer&action=cart&success=' . urlencode($message));
 exit;
-

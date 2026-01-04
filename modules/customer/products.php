@@ -35,10 +35,32 @@ $result = mysqli_query($conn, $query);
 
 // Get categories for filter
 $categories = mysqli_query($conn, "SELECT id, category_name FROM categories ORDER BY category_name");
+
+$error = '';
+$success = '';
+if (isset($_GET['error'])) {
+    $error = htmlspecialchars($_GET['error']);
+}
+if (isset($_GET['success'])) {
+    $success = htmlspecialchars($_GET['success']);
+}
 ?>
 <div class="page-header">
     <h2><i class="bi bi-box-seam"></i> Browse Products</h2>
 </div>
+
+<?php if ($success): ?>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="bi bi-check-circle"></i> <?php echo $success; ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<?php endif; ?>
+<?php if ($error): ?>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="bi bi-exclamation-triangle"></i> <?php echo $error; ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<?php endif; ?>
 
 <!-- Search and Filter -->
 <div class="card mb-4">
@@ -120,4 +142,3 @@ $categories = mysqli_query($conn, "SELECT id, category_name FROM categories ORDE
         </div>
     <?php endif; ?>
 </div>
-

@@ -12,7 +12,28 @@ $result = mysqli_query(
      JOIN customers c ON o.customer_id = c.id
      ORDER BY o.id DESC"
 );
+
+$error = '';
+$success = '';
+if (isset($_GET['error'])) {
+    $error = htmlspecialchars($_GET['error']);
+}
+if (isset($_GET['success'])) {
+    $success = htmlspecialchars($_GET['success']);
+}
 ?>
+<?php if ($success): ?>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="bi bi-check-circle"></i> <?php echo $success; ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<?php endif; ?>
+<?php if ($error): ?>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="bi bi-exclamation-triangle"></i> <?php echo $error; ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<?php endif; ?>
 <div class="page-header">
     <h2><i class="bi bi-cart-check"></i> Orders</h2>
     <a href="index.php?module=orders&action=form" class="btn btn-primary">

@@ -13,10 +13,20 @@ $result = mysqli_query(
 );
 
 $error = '';
+$success = '';
 if (isset($_GET['error'])) {
     $error = htmlspecialchars($_GET['error']);
 }
+if (isset($_GET['success'])) {
+    $success = htmlspecialchars($_GET['success']);
+}
 ?>
+<?php if ($success): ?>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="bi bi-check-circle"></i> <?php echo $success; ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<?php endif; ?>
 <?php if ($error): ?>
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
         <i class="bi bi-exclamation-triangle"></i> <?php echo $error; ?>

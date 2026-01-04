@@ -19,10 +19,32 @@ foreach ($cart as &$item) {
     $item['subtotal'] = $item['price'] * $item['quantity'];
     $total += $item['subtotal'];
 }
+
+$error = '';
+$success = '';
+if (isset($_GET['error'])) {
+    $error = htmlspecialchars($_GET['error']);
+}
+if (isset($_GET['success'])) {
+    $success = htmlspecialchars($_GET['success']);
+}
 ?>
 <div class="page-header">
     <h2><i class="bi bi-cart"></i> Shopping Cart</h2>
 </div>
+
+<?php if ($success): ?>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="bi bi-check-circle"></i> <?php echo $success; ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<?php endif; ?>
+<?php if ($error): ?>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="bi bi-exclamation-triangle"></i> <?php echo $error; ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<?php endif; ?>
 
 <?php if (empty($cart)): ?>
     <div class="card">
@@ -100,4 +122,3 @@ foreach ($cart as &$item) {
         </div>
     </div>
 <?php endif; ?>
-

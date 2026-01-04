@@ -99,14 +99,27 @@ if (isset($_POST['confirm_order'])) {
         exit;
     } catch (Exception $e) {
         mysqli_rollback($conn);
-        header('Location: index.php?module=customer&action=checkout&error=' . urlencode('Order failed. Please try again.'));
+        $errorMessage = 'Order failed: ' . htmlspecialchars($e->getMessage());
+        header('Location: index.php?module=customer&action=checkout&error=' . urlencode($errorMessage));
         exit;
     }
+}
+?>
+$error = '';
+if (isset($_GET['error'])) {
+    $error = htmlspecialchars($_GET['error']);
 }
 ?>
 <div class="page-header">
     <h2><i class="bi bi-check-circle"></i> Checkout</h2>
 </div>
+
+<?php if ($error): ?>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="bi bi-exclamation-triangle"></i> <?php echo $error; ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<?php endif; ?>
 
 <div class="row">
     <div class="col-md-8">
@@ -173,4 +186,3 @@ if (isset($_POST['confirm_order'])) {
         </div>
     </div>
 </div>
-

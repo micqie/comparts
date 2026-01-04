@@ -7,8 +7,26 @@ $customer_id = isset($_POST['customer_id']) ? (int)$_POST['customer_id'] : 0;
 $product_ids = $_POST['product_id'] ?? [];
 $quantities = $_POST['quantity'] ?? [];
 
-if ($customer_id <= 0 || empty($product_ids) || empty($quantities)) {
-    header('Location: index.php?module=orders&action=list');
+// Validation
+if ($customer_id <= 0) {
+    header('Location: index.php?module=orders&action=list&error=' . urlencode('Please select a customer'));
+    exit;
+}
+
+// Verify customer exists
+$checkStmt = mysqli_prepare($conn, "SELECT id FROM customers WHERE id = ?");
+mysqli_stmt_bind_param($checkStmt, 'i', $customer_id);
+mysqli_stmt_execute($checkStmt);
+$result = mysqli_stmt_get_result($checkStmt);
+if (!mysqli_fetch_assoc($result)) {
+    mysqli_stmt_close($checkStmt);
+    header('Location: index.php?module=orders&action=list&error=' . urlencode('Invalid customer selected'));
+    exit;
+}
+mysqli_stmt_close($checkStmt);
+
+if (empty($product_ids) || empty($quantities)) {
+    header('Location: index.php?module=orders&action=list&error=' . urlencode('Please add at least one product to the order'));
     exit;
 }
 
@@ -115,13 +133,11 @@ try {
     mysqli_stmt_close($stmt);
 
     mysqli_commit($conn);
+    header('Location: index.php?module=orders&action=list&success=' . urlencode("Order #{$order_id} created successfully!"));
+    exit;
 } catch (Exception $e) {
     mysqli_rollback($conn);
-    // In a real app you might log the error and show a friendlier message
+    $errorMessage = 'Failed to create order: ' . htmlspecialchars($e->getMessage());
+    header('Location: index.php?module=orders&action=list&error=' . urlencode($errorMessage));
+    exit;
 }
-
-header('Location: index.php?module=orders&action=list');
-exit;
-
-
-
